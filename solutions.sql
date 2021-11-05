@@ -13,3 +13,65 @@ select * from CITY where ID = 1661;
 
 -- select CITY and STATE fields from the STATION table
 select CITY, STATE from STATION;
+
+-- get a list of city names from STATION table for cities that have an even ID number
+-- exclude duplicates from the result set
+select distinct CITY
+from STATION
+where ID % 2 = 0;
+
+-- get the difference between the total number of CITY records and the number of distinct CITY records
+select count(CITY) - count(distinct CITY)
+from STATION;
+
+-- generate a result set containing the name and letter count of the smallest and the largest city
+-- if there are multiple smallest or largest cities, then choose the first one when ordered alphabetically
+(select CITY, char_length(CITY)
+from STATION
+order by char_length(CITY), CITY
+limit 1)
+union
+(select CITY, char_length(CITY)
+from STATION
+order by char_length(CITY) desc, CITY
+limit 1);
+
+-- query a list of city names that start with vowels (a, e, i, o, u)
+-- exclude duplicates
+select distinct CITY
+from STATION
+where CITY like 'a%' or CITY like 'e%' or CITY like 'i%' or CITY like 'o%' or CITY like 'u%';
+-- solution using regexp
+select distinct CITY
+from STATION
+where CITY regexp '^[aeiou].*';
+
+-- query a list of city names that end with vowels (a, e, i, o, u)
+-- exclude duplicates
+select distinct CITY
+from STATION
+where CITY regexp '.*[aeiou]$';
+
+-- query a list of city names that start and end with vowels (a, e, i, o, u)
+-- exclude duplicates
+select distinct CITY
+from STATION
+where CITY regexp '^[aeiou].*[aeiou]$';
+
+-- query a list of city names that do not start with vowels (a, e, i, o, u)
+-- exclude duplicates
+select distinct CITY
+from STATION
+where CITY regexp '^[^aeiou].*';
+
+-- query a list of city names that do not end with vowels (a, e, i, o, u)
+-- exclude duplicates
+select distinct CITY
+from STATION
+where CITY regexp '.*[^aeiou]$';
+
+-- query a list of city names that do not start with vowels or end with vowels (a, e, i, o, u)
+-- exclude duplicates
+select distinct CITY
+from STATION
+where CITY regexp '^[^aeiou].*' or CITY regexp '.*[^aeiou]$';

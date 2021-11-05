@@ -75,3 +75,18 @@ where CITY regexp '.*[^aeiou]$';
 select distinct CITY
 from STATION
 where CITY regexp '^[^aeiou].*' or CITY regexp '.*[^aeiou]$';
+
+-- select the names of students who have more than 75 marks
+-- order the result set by the last three letters of a student's name
+-- in case, multiple students have names with similar last three letters, then sort them by id (ascending)
+SELECT name
+FROM students
+WHERE marks > 75
+ORDER BY SUBSTRING(name, -3), id;
+
+-- select the names of employees whose salary is more than $2000 and have been employed for less than 10 months
+-- order the result set by employee id (ascending)
+SELECT name
+FROM employee
+WHERE salary > 2000 AND months < 10
+ORDER BY employee_id;

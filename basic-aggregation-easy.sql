@@ -44,3 +44,20 @@ FROM city;
 SELECT
     CEIL(AVG(salary) - AVG(REPLACE(salary, '0', '')))
 FROM employees;
+
+-- get the western longitude for the largest northern latitude that is less than 137.2345
+-- round the result to 4 decimal places
+SELECT ROUND(long_w, 4)
+FROM station
+WHERE lat_n < 137.2345
+ORDER BY lat_n DESC
+LIMIT 1;
+-- alternative solution using MAX() and subquery
+-- this solution is more efficient even though a subquery is being used because it does not have to order the result set and perform LIMIT
+SELECT ROUND(long_w, 4)
+FROM station
+WHERE lat_n = (
+    SELECT MAX(lat_n)
+    FROM station
+    WHERE lat_n < 137.2345
+);

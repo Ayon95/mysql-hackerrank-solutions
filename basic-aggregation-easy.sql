@@ -24,3 +24,23 @@ WHERE lat_n > 38.7880 AND lat_n < 137.2345;
 SELECT TRUNCATE(MAX(lat_n), 4)
 FROM station
 WHERE lat_n < 137.2345;
+
+-- find the number of cities whose population is greater than 100,000
+SELECT COUNT(name)
+FROM city
+WHERE population > 100000;
+
+-- find the total population of all cities in California district
+SELECT SUM(population)
+FROM city
+WHERE district = 'California';
+
+-- get the difference between the maximum and minimum populations
+SELECT MAX(population) - MIN(population)
+FROM city;
+
+-- get the difference between the actual average salary and miscalculated average salary (any 0 from a salary is omitted)
+-- round the difference up to the nearest integer
+SELECT
+    CEIL(AVG(salary) - AVG(REPLACE(salary, '0', '')))
+FROM employees;
